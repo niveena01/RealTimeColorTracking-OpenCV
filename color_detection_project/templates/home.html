@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Color Tracking Project</title>
+    <style>
+        .container{
+            margin: 50px 0px 50px 50px; /* top right bottom left */
+
+        }
+        h1{
+           margin-bottom: 50px;
+           margin-left:80px;
+           color:red;
+        }
+        a{
+            margin: 0px 0px 0px 20px;
+
+            text-decoration:none;
+
+        }
+        .btn{
+        margin: 0px 0px 0px 100px;
+            background-color:blue;
+            color:#FFFF;
+            padding: 10px 20px 10px 20px;
+            text-decoration:none;
+        }
+        p{
+            margin-top: 30px;
+            margin-left: 100px;
+            color: black;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Color tracking in video</h1>
+    <a class="btn" href="{% url 'live_color_capture' %}">Start Tracking</a><br>
+   <p>If you start video tracking, <mark>click the 'esc' button to pause,</mark> and <mark>close the tab to exit</mark></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Capture</title>
+</head>
+<body>
+    <h1>Live Color Capture</h1>
+
+    <button id="startButton" style="padding:10px;background-color:blue;">Start Capture</button>
+    <button id="stopButton" style="padding:10px;background-color:blue;">Stop Capture</button>
+
+    <br>
+
+    <img id="videoStream" alt="Color Capture">
+
+    <script>
+        var videoElement = document.getElementById('videoStream');
+        var startButton = document.getElementById('startButton');
+        var stopButton = document.getElementById('stopButton');
+        var videoSource;
+
+        startButton.addEventListener('click', function() {
+            startButton.disabled = true;  // Disable the "Start Capture" button while capturing
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                videoElement.srcObject = stream;
+                videoSource = stream;
+            })
+            .catch(function(error) {
+                console.error('Error accessing webcam:', error);
+                startButton.disabled = false;  // Re-enable the "Start Capture" button
+            });
+        });
+
+        stopButton.addEventListener('click', function() {
+            if (videoSource) {
+                videoSource.getTracks().forEach(function(track) {
+                    track.stop();
+                });
+                videoElement.srcObject = null;
+                videoSource = null;
+                startButton.disabled = false;  // Re-enable the "Start Capture" button
+            }
+        });
+
+        // Initially disable the stop button
+        stopButton.disabled = true;
+
+        // Monitor video stream status to enable/disable buttons
+        videoElement.addEventListener('play', function() {
+            startButton.disabled = true;
+            stopButton.disabled = false;
+        });
+
+        videoElement.addEventListener('ended', function() {
+            startButton.disabled = false;
+            stopButton.disabled = true;
+        });
+    </script>
+</body>
+</html>
+
